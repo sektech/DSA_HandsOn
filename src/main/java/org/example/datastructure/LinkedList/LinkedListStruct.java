@@ -1,5 +1,8 @@
 package org.example.datastructure.LinkedList;
 
+import java.util.LinkedList;
+import java.util.Stack;
+
 public class LinkedListStruct {
     private Node head;
 
@@ -15,6 +18,35 @@ public class LinkedListStruct {
             node = node.getNextNode();
         }
         System.out.print(node.getData());
+    }
+
+    public void reverse(){
+        if (head == null ) {
+            System.out.println("Linked List is empty");
+            return;
+        }
+       Node node = head;
+        System.out.print("head-->");
+        Stack<Node> newLinkedList = new Stack<>();
+
+        while (node!=null){
+            newLinkedList.push(node);
+            node = node.getNextNode();
+        }
+        Node reverseHeadNode =null;
+        for (Node node1 : newLinkedList){
+            node1.setNextNode(reverseHeadNode);
+            reverseHeadNode = node1;
+        }
+
+        Node node2 = reverseHeadNode;
+        System.out.print("head-->");
+        while (node2.getNextNode()!=null){
+            System.out.print(node2.getData() + "-->");
+            node2 = node2.getNextNode();
+        }
+        System.out.print(node2.getData());
+
     }
 
     public Integer searchLinkedList(int data){
@@ -106,4 +138,86 @@ public class LinkedListStruct {
         Node currentToNext = currentHead.getNextNode();
         currentHead.setNextNode(currentToNext.getNextNode());
     }
+
+    public int findLengthOfLinkedList(){
+        Node node = head;
+        int count = 1;
+        if(node == null){
+            return 0;
+        }
+        while(node.getNextNode()!=null)
+        {
+            node = node.getNextNode();
+            count++;
+        }
+        return count;
+    }
+    public int findIndex(int data){
+        Node node = head;
+        int count = 0;
+        if(node == null){
+            return -1;
+        }
+
+        while(node.getNextNode()!=null)
+        {
+            if(node.getData() == data)
+                return count;
+            node = node.getNextNode();
+            count++;
+        }
+        return -1;
+    }
+
+    public int getKthFromLast(int k){
+        Node node = head;
+        int count = 1;
+        if(node == null){
+            return 0;
+        }
+        while(node.getNextNode()!=null)
+        {
+            node = node.getNextNode();
+            count++;
+        }
+        int IndexToFind = count-k;
+        if (IndexToFind < 0) return 0;
+        node = head;
+        for(int i= 0; i< IndexToFind;i++){
+            node = node.getNextNode();
+        }
+        return node.getData();
+    }
+    public int getMiddle(){
+        Node node= head; int count = 1;
+        if (head == null) return 0;
+        while(node!=null)
+        {
+            node = node.getNextNode();
+            count++;
+        }
+
+        System.out.println("\n reminder : " + count/2);
+        node = head;
+        for(int i = 0; i< count/2;i++){
+            node = node.getNextNode();
+        }
+        System.out.println("\n middle node: " + node.getData());
+        return  node.getData();
+
+    }
+
+    public Node reverseHeadNode(){
+        Node newReversedNode = null;
+        Node node = head;
+        while(node!= null){
+            Node newNode = new Node(node.getData());
+            newNode.setNextNode(newReversedNode);
+            newReversedNode = newNode;
+            node = node.getNextNode();
+        }
+        return newReversedNode;
+    }
+
+
 }
